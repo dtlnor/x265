@@ -306,11 +306,11 @@ namespace X265_NS {
         H1("   --ipratio <float>             QP factor between I and P. Default %.2f\n", param->rc.ipFactor);
         H1("   --pbratio <float>             QP factor between P and B. Default %.2f\n", param->rc.pbFactor);
         H1("   --qcomp <float>               Weight given to predicted complexity. Default %.2f\n", param->rc.qCompress);
-        H1("   --cutree-strength <float>     Overrides the strength of cutree Adaptive Quantization. Default is unset (calculated from --qcomp):\n"
-        H1("                                 - hevc-aq enabled:   6.0 * (1.0 - qcomp)\n
-        H1("                                 - hevc-aq disabled:  5.0 * (1.0 - qcomp)\n")
-        H1("   --cutree-minqpoffs <float>    sets a hard lower limit on QP offset (-69 to 0 ) allowed for cutree Adaptive Quantization. Default is %d (not limited)\n", param->rc.cuTreeMinQpOffset)
-        H1("   --cutree-maxqpoffs <float>    sets a hard upper limit on QP offset ( 0 to 69 ) allowed for cutree Adaptive Quantization. Default is %d (not limited)\n", param->rc.cuTreeMaxQpOffset)
+        H1("   --cutree-strength <float>     Overrides the strength of cutree Adaptive Quantization. Default is unset (calculated from --qcomp):\n");
+        H1("                                 - hevc-aq enabled:   6.0 * (1.0 - qcomp)\n");
+        H1("                                 - hevc-aq disabled:  5.0 * (1.0 - qcomp)\n");
+        H1("   --cutree-minqpoffs <float>    sets a hard lower limit on QP offset (-69 to 0 ) allowed for cutree Adaptive Quantization. Default is %d (not limited)\n", param->rc.cuTreeMinQpOffset);
+        H1("   --cutree-maxqpoffs <float>    sets a hard upper limit on QP offset ( 0 to 69 ) allowed for cutree Adaptive Quantization. Default is %d (not limited)\n", param->rc.cuTreeMaxQpOffset);
         H1("   --qpstep <integer>            The maximum single adjustment in QP allowed to rate control. Default %d\n", param->rc.qpStep);
         H1("   --qpmin <integer>             sets a hard lower limit on QP allowed to ratecontrol. Default %d\n", param->rc.qpMin);
         H1("   --qpmax <integer>             sets a hard upper limit on QP allowed to ratecontrol. Default %d\n", param->rc.qpMax);
