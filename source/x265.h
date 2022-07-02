@@ -1389,6 +1389,19 @@ typedef struct x265_param
          * Default value is 0.6. Increasing it to 1 will effectively generate CQP */
         double    qCompress;
 
+        /* Weight given to cutree Adaptive Quantization (0 to 3.0). By default, it is calculated from
+         * qCompress and weights differently when hevc-aq is enabled/disabled
+         * - hevc-aq enabled:   6.0 * (1.0 - qcomp)
+         * - hevc-aq disabled:  5.0 * (1.0 - qcomp)                            */
+        double    cuTreeStrength;
+
+
+        /* Sets hard lower/upper QpOffset allowed for cutree Adaptive Quantization
+         * Default cuTreeMinQpOffset: -69 (no limit)
+         * Default cuTreeMaxQpOffset:  69 (no limit) */
+        double cuTreeMinQpOffset;
+        double cuTreeMaxQpOffset;
+
         /* QP offset between I/P and P/B frames. Default ipfactor: 1.4
          * Default pbFactor: 1.3 */
         double    ipFactor;
@@ -1407,6 +1420,11 @@ typedef struct x265_param
          * generally improves. Default: X265_AQ_AUTO_VARIANCE */
         int       aqMode;
 
+        /* Use QP offset determined by aq-mode 1 (uniform AQ) as hard upper limit on
+         * QP offset allowed in aq-mode 2-5. This (might) help in scenes with large
+         * complexity differences among blocks.  Default: disabled */
+        int       limitAq1;
+
         /*
          * Enable adaptive quantization.
          * It scales the quantization step size according to the spatial activity of one
@@ -1421,6 +1439,10 @@ typedef struct x265_param
 
         /* Sets the bias towards dark scenes in AQ modes 3 and 5. */
         double    aqBiasStrength;
+
+        /* Sets the aq-strength aq-mode 1 when limit-aq1 is enabled. Valid only if
+         * limit-aq1 is enabled. Default value: 1.0. Acceptable values between 0.0 and 3.0 */
+        double    limitAq1Strength;
 
         /* Delta QP range by QP adaptation based on a psycho-visual model.
          * Acceptable values between 1.0 to 6.0 */
