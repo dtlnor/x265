@@ -2656,9 +2656,9 @@ void x265_copy_params(x265_param* dst, x265_param* src)
     dst->rc.qp = src->rc.qp;
     dst->rc.bitrate = src->rc.bitrate;
     dst->rc.qCompress = src->rc.qCompress;
-    dst->rc.cuTreeStrength = src->rc.cuTreeStrength
-    dst->rc.cuTreeMinQpOffset = src->rc.cuTreeMinQpOffset
-    dst->rc.cuTreeMaxQpOffset = src->rc.cuTreeMaxQpOffset
+    dst->rc.cuTreeStrength = src->rc.cuTreeStrength;
+    dst->rc.cuTreeMinQpOffset = src->rc.cuTreeMinQpOffset;
+    dst->rc.cuTreeMaxQpOffset = src->rc.cuTreeMaxQpOffset;
     dst->rc.ipFactor = src->rc.ipFactor;
     dst->rc.pbFactor = src->rc.pbFactor;
     dst->rc.rfConstant = src->rc.rfConstant;
