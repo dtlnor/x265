@@ -1885,7 +1885,7 @@ int x265_check_params(x265_param* param)
           "Target bitrate can not be less than zero");
     CHECK(param->rc.qCompress < 0.5 || param->rc.qCompress > 1.0,
           "qCompress must be between 0.5 and 1.0");
-    CHECK(param->rc.cuTreeStrength < 0.0 || param->rc.cuTreeStrength > 3.0,
+    CHECK(param->rc.cuTree && (param->rc.cuTreeStrength < 0.0 || param->rc.cuTreeStrength > 3.0),
           "cuTreeStrength must be between 0.0 and 3.0");
     CHECK(param->rc.cuTreeMinQpOffset < -QP_MAX_MAX || param->rc.cuTreeMinQpOffset > QP_MIN,
           "cuTreeMinQpOffset exceeds supported range (-69 to 0)");
