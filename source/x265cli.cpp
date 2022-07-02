@@ -286,15 +286,15 @@ namespace X265_NS {
             "                                    - 0 : Disabled.\n"
             "                                    - 1 : Store/Load ctu distortion to/from the file specified in analysis-save/load.\n"
             "                                Default 0 - Disabled\n");
-        H0("   --aq-mode <integer>           Mode for Adaptive Quantization - Default %d\n", param->rc.aqMode);
-        H0("                                     - 0 : none\n")
-        H0("                                     - 1 : uniform AQ\n")
-        H0("                                     - 2 : auto variance\n")
-        H0("                                     - 3 : variance with bias to dark scenes\n")
-        H0("                                     - 4 : auto variance with edge information\n")
-        H0("                                     - 5 : auto variance with edge information and bias to dark scenes.\n")
-        H0("   --[no-]limit-aq1              Use QP offset determined by aq-mode 1 (uniform AQ) as hard upper limit on QP offset allowed in aq-mode 2-5. This (might) help in scenes with large complexity differences among blocks. Default is %s\n", OPT(param->rc.limitAq1))
-        H0("   --[no-]hevc-aq                Mode for HEVC Adaptive Quantization. Default %s\n", OPT(param->rc.hevcAq));
+        H0("   --aq-mode <integer>           Mode for Adaptive Quantization - Default %d\n"
+           "                                     - 0 : none\n"
+           "                                     - 1 : uniform AQ\n"
+           "                                     - 2 : auto variance\n"
+           "                                     - 3 : variance with bias to dark scenes\n"
+           "                                     - 4 : auto variance with edge information\n"
+           "                                     - 5 : auto variance with edge information and bias to dark scenes.\n", param->rc.aqMode);
+        H0("   --[no-]limit-aq1              Use QP offset determined by aq-mode 1 (uniform AQ) as hard upper limit on QP offset allowed in aq-mode 2-5. This (might) help in scenes with large complexity differences among blocks. Default is %s\n", OPT(param->rc.limitAq1));
+        H0("   --[no-]hevc-aq                Mode for HEVC Adaptive Quantization. Default %.2f\n", OPT(param->rc.hevcAq));
         H0("   --aq-strength <float>         Reduces blocking and blurring in flat and textured areas (0 to 3.0). Default %.2f\n", param->rc.aqStrength);
         H0("   --aq-bias-strength <float>    Sets the bias to dark strength in AQ modes 3 and 5. Default %.2f\n", param->rc.aqBiasStrength);
         H0("   --limit-aq1-strength <float>  Sets the aq-strength aq-mode 1 when limit-aq1 is enabled (0 to 3.0). Default %.2f\n", param->rc.limitAq1Strength);
@@ -306,11 +306,11 @@ namespace X265_NS {
         H1("   --ipratio <float>             QP factor between I and P. Default %.2f\n", param->rc.ipFactor);
         H1("   --pbratio <float>             QP factor between P and B. Default %.2f\n", param->rc.pbFactor);
         H1("   --qcomp <float>               Weight given to predicted complexity. Default %.2f\n", param->rc.qCompress);
-        H1("   --cutree-strength <float>     Overrides the strength of cutree Adaptive Quantization. Default is unset (calculated from --qcomp):\n");
-        H1("                                 - hevc-aq enabled:   6.0 * (1.0 - qcomp)\n");
-        H1("                                 - hevc-aq disabled:  5.0 * (1.0 - qcomp)\n");
-        H1("   --cutree-minqpoffs <float>    sets a hard lower limit on QP offset (-69 to 0 ) allowed for cutree Adaptive Quantization. Default is %d (not limited)\n", param->rc.cuTreeMinQpOffset);
-        H1("   --cutree-maxqpoffs <float>    sets a hard upper limit on QP offset ( 0 to 69 ) allowed for cutree Adaptive Quantization. Default is %d (not limited)\n", param->rc.cuTreeMaxQpOffset);
+        H1("   --cutree-strength <float>     Overrides the strength of cutree Adaptive Quantization. Default is unset (calculated from --qcomp):\n"
+           "                                 - hevc-aq enabled:   6.0 * (1.0 - qcomp)\n"
+           "                                 - hevc-aq disabled:  5.0 * (1.0 - qcomp)\n");
+        H1("   --cutree-minqpoffs <float>    sets a hard lower limit on QP offset (-69 to 0 ) allowed for cutree Adaptive Quantization. Default is %.2f (not limited)\n", param->rc.cuTreeMinQpOffset);
+        H1("   --cutree-maxqpoffs <float>    sets a hard upper limit on QP offset ( 0 to 69 ) allowed for cutree Adaptive Quantization. Default is %.2f (not limited)\n", param->rc.cuTreeMaxQpOffset);
         H1("   --qpstep <integer>            The maximum single adjustment in QP allowed to rate control. Default %d\n", param->rc.qpStep);
         H1("   --qpmin <integer>             sets a hard lower limit on QP allowed to ratecontrol. Default %d\n", param->rc.qpMin);
         H1("   --qpmax <integer>             sets a hard upper limit on QP allowed to ratecontrol. Default %d\n", param->rc.qpMax);
