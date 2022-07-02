@@ -1888,9 +1888,9 @@ int x265_check_params(x265_param* param)
     CHECK(param->rc.cuTreeStrength < 0.0 || param->rc.cuTreeStrength > 3.0,
           "cuTreeStrength must be between 0.0 and 3.0");
     CHECK(param->rc.cuTreeMinQpOffset < -QP_MAX_MAX || param->rc.cuTreeMinQpOffset > QP_MIN,
-          "cuTreeMinQpOffset exceeds supported range (0 to 69)");
-    CHECK(param->rc.cuTreeMinQpOffset < QP_MIN || param->rc.cuTreeMinQpOffset > QP_MAX_MAX,
-          "cuTreeMaxQpOffset exceeds supported range (0 to 69)");
+          "cuTreeMinQpOffset exceeds supported range (-69 to 0)");
+    CHECK(param->rc.cuTreeMaxQpOffset < QP_MIN || param->rc.cuTreeMaxQpOffset > QP_MAX_MAX,
+          "cuTreeMaxQpOffset exceeds supported range ( 0 to 69)");
     if (param->noiseReductionIntra)
         CHECK(0 > param->noiseReductionIntra || param->noiseReductionIntra > 2000, "Valid noise reduction range 0 - 2000");
     if (param->noiseReductionInter)
