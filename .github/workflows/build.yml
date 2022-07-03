@@ -48,7 +48,7 @@ jobs:
       uses: actions/cache@v2
       with:
         path: ffmpeg
-        key: ${{matrix.target_cpu}}-${{matrix.toolchain}}-ff
+        key: ${{matrix.target_cpu}}-${{matrix.toolchain}}-ff-v2
     - name: Checkout FFmpeg
       uses: actions/checkout@v2
       with:
