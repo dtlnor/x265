@@ -587,7 +587,7 @@ void LookaheadTLD::calcAdaptiveQuantFrame(Frame *curFrame, x265_param* param)
                             if (param->rc.limitAq1) {
                                 uint32_t energy = acEnergyCu(curFrame, blockX, blockY, param->internalCsp, param->rc.qgSize);
                                 double aq1_qp_adj = limitAq1_strength * (X265_LOG2(X265_MAX(energy, 1)) - (modeOneConst + 2 * (X265_DEPTH - 8)));
-                                qp_adj = x265_man(qp_adj, aq1_qp_adj);
+                                qp_adj = X265_MAX(qp_adj, aq1_qp_adj);
                             }
                         }
                         else if (param->rc.aqMode == X265_AQ_AUTO_VARIANCE)
@@ -597,7 +597,7 @@ void LookaheadTLD::calcAdaptiveQuantFrame(Frame *curFrame, x265_param* param)
                             if (param->rc.limitAq1) {
                                 uint32_t energy = acEnergyCu(curFrame, blockX, blockY, param->internalCsp, param->rc.qgSize);
                                 double aq1_qp_adj = limitAq1_strength * (X265_LOG2(X265_MAX(energy, 1)) - (modeOneConst + 2 * (X265_DEPTH - 8)));
-                                qp_adj = x265_man(qp_adj, aq1_qp_adj);
+                                qp_adj = X265_MAX(qp_adj, aq1_qp_adj);
                             }
 
                         }
@@ -612,7 +612,7 @@ void LookaheadTLD::calcAdaptiveQuantFrame(Frame *curFrame, x265_param* param)
                             if (param->rc.limitAq1) {
                                 uint32_t energy = acEnergyCu(curFrame, blockX, blockY, param->internalCsp, param->rc.qgSize);
                                 double aq1_qp_adj = limitAq1_strength * (X265_LOG2(X265_MAX(energy, 1)) - (modeOneConst + 2 * (X265_DEPTH - 8)));
-                                qp_adj = x265_man(qp_adj, aq1_qp_adj);
+                                qp_adj = X265_MAX(qp_adj, aq1_qp_adj);
                             }
                         }
                         else if (param->rc.aqMode == X265_AQ_EDGE_BIASED)
@@ -628,7 +628,7 @@ void LookaheadTLD::calcAdaptiveQuantFrame(Frame *curFrame, x265_param* param)
                             if (param->rc.limitAq1) {
                                 uint32_t energy = acEnergyCu(curFrame, blockX, blockY, param->internalCsp, param->rc.qgSize);
                                 double aq1_qp_adj = limitAq1_strength * (X265_LOG2(X265_MAX(energy, 1)) - (modeOneConst + 2 * (X265_DEPTH - 8)));
-                                qp_adj = x265_man(qp_adj, aq1_qp_adj);
+                                qp_adj = X265_MAX(qp_adj, aq1_qp_adj);
                             }
                         }
                         else
