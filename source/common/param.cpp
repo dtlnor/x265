@@ -1807,9 +1807,9 @@ int x265_check_params(x265_param* param)
           "deblocking filter Beta offset must be in the range of -6 to +6");
     CHECK(param->psyRd < 0 || 5.0 < param->psyRd, "Psy-rd strength must be between 0 and 5.0");
     CHECK(param->psyRdoq < 0 || 50.0 < param->psyRdoq, "Psy-rdoq strength must be between 0 and 50.0");
-    CHECK(param->psyScaleB < 96 || 300 < param->psyScaleB, "Psy-bscale must be between 96 and 300");
-    CHECK(param->psyScaleP < 96 || 300 < param->psyScaleP, "Psy-pscale must be between 96 and 300");
-    CHECK(param->psyScaleI < 96 || 300 < param->psyScaleI, "Psy-iscale must be between 96 and 300");
+    CHECK(param->psyScaleB < 0 || 300 < param->psyScaleB, "Psy-bscale must be between 0 and 300");
+    CHECK(param->psyScaleP < 0 || 300 < param->psyScaleP, "Psy-pscale must be between 0 and 300");
+    CHECK(param->psyScaleI < 0 || 300 < param->psyScaleI, "Psy-iscale must be between 0 and 300");
     CHECK(param->bEnableWavefront < 0, "WaveFrontSynchro cannot be negative");
     CHECK((param->vui.aspectRatioIdc < 0
            || param->vui.aspectRatioIdc > 16)
