@@ -2868,7 +2868,7 @@ void Lookahead::computeCUTreeQpOffset(Lowres *frame, double averageDuration, int
 
                     double qp_offset = (m_cuTreeStrength * log2_ratio) / blockXY;
 
-                    qp_offset = x265_clip3(m_cuTreeMinQpOffset, m_cuTreeMaxQpOffset, (m_cuTreeStrength * log2_ratio) / blockXY)
+                    qp_offset = x265_clip3(m_cuTreeMinQpOffset, m_cuTreeMaxQpOffset, (m_cuTreeStrength * log2_ratio) / blockXY);
 
                     *pcCuTree = *pcQP - qp_offset;
                 }
@@ -2922,7 +2922,7 @@ void Lookahead::computeCUTreeQpOffset(Lowres *frame, double averageDuration, int
 
                     double qp_offset = (m_cuTreeStrength * log2_ratio) / blockXY;
 
-                    qp_offset = x265_clip3(m_cuTreeMinQpOffset, m_cuTreeMaxQpOffset, (m_cuTreeStrength * log2_ratio) / blockXY)
+                    qp_offset = x265_clip3(m_cuTreeMinQpOffset, m_cuTreeMaxQpOffset, (m_cuTreeStrength * log2_ratio) / blockXY);
 
                     *pcCuTree = *pcQP - qp_offset;
 
