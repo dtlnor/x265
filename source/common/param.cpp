@@ -1118,7 +1118,12 @@ int x265_param_parse(x265_param* p, const char* name, const char* value)
     OPT("hrd") p->bEmitHRDSEI = atobool(value);
     OPT2("ipratio", "ip-factor") p->rc.ipFactor = atof(value);
     OPT2("pbratio", "pb-factor") p->rc.pbFactor = atof(value);
-    OPT("qcomp") p->rc.qCompress = atof(value);
+    OPT("hevc-aq") p->rc.hevcAq = atobool(value);
+    OPT("qcomp") {
+        double qCompress = atof(value);
+        p->rc.qCompress = qCompress;
+        p->rc.cuTreeStrength = (p->rc.hevcAq ? 6.0 : 5.0) * (1.0 - qCompress);
+    }
     OPT("cutree-strength") p->rc.cuTreeStrength = atof(value);
     OPT("cutree-minqpoffs") p->rc.cuTreeMinQpOffset = atof(value);
     OPT("cutree-maxqpoffs") p->rc.cuTreeMaxQpOffset = atof(value);
@@ -1408,7 +1413,6 @@ int x265_param_parse(x265_param* p, const char* name, const char* value)
         }
         OPT("hrd-concat") p->bEnableHRDConcatFlag = atobool(value);
         OPT("refine-ctu-distortion") p->ctuDistortionRefine = atoi(value);
-        OPT("hevc-aq") p->rc.hevcAq = atobool(value);
         OPT("qp-adaptation-range") p->rc.qpAdaptationRange = atof(value);
 #ifdef SVT_HEVC
         OPT("svt")
