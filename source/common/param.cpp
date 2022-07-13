@@ -267,9 +267,6 @@ void x265_param_default(x265_param* param)
     param->rc.rfConstant = 28;
     param->rc.bitrate = 0;
     param->rc.qCompress = 0.6;
-    param->rc.cuTreeStrength = -1.0;
-    param->rc.cuTreeMinQpOffset = -QP_MAX_MAX;
-    param->rc.cuTreeMaxQpOffset = QP_MAX_MAX;
     param->rc.ipFactor = 1.4f;
     param->rc.pbFactor = 1.3f;
     param->rc.qpStep = 4;
@@ -304,6 +301,9 @@ void x265_param_default(x265_param* param)
     param->reconfigWindowSize = 0;
     param->decoderVbvMaxRate = 0;
     param->bliveVBV2pass = 0;
+    param->rc.cuTreeStrength = (param->rc.hevcAq ? 6.0 : 5.0) * (1.0 - param->rc.qCompress);
+    param->rc.cuTreeMinQpOffset = -QP_MAX_MAX;
+    param->rc.cuTreeMaxQpOffset = QP_MAX_MAX;
 
     /* Video Usability Information (VUI) */
     param->vui.aspectRatioIdc = 0;
