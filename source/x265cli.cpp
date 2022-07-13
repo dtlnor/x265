@@ -152,6 +152,9 @@ namespace X265_NS {
         H0("   --[no-]psy-rd <0..5.0>        Strength of psycho-visual rate distortion optimization, 0 to disable. Default %.1f\n", param->psyRd);
         H0("   --[no-]rdoq-level <0|1|2>     Level of RDO in quantization 0:none, 1:levels, 2:levels & coding groups. Default %d\n", param->rdoqLevel);
         H0("   --[no-]psy-rdoq <0..50.0>     Strength of psycho-visual optimization in RDO quantization, 0 to disable. Default %.1f\n", param->psyRdoq);
+        H0("   --psy-bscale <96..300>        Scaling of psycho-visual optimization in RDO quantization for B-slice. Default %d\n", param->psyScaleB);
+        H0("   --psy-pscale <96..300>        Scaling of psycho-visual optimization in RDO quantization for P-slice. Default %d\n", param->psyScaleP);
+        H0("   --psy-iscale <96..300>        Scaling of psycho-visual optimization in RDO quantization for I-slice. Default %d\n", param->psyScaleI);
         H0("   --dynamic-rd <0..4.0>         Strength of dynamic RD, 0 to disable. Default %.2f\n", param->dynamicRd);
         H0("   --[no-]ssim-rd                Enable ssim rate distortion optimization, 0 to disable. Default %s\n", OPT(param->bSsimRd));
         H0("   --[no-]rd-refine              Enable QP based RD refinement for rd levels 5 and 6. Default %s\n", OPT(param->bEnableRdRefine));
