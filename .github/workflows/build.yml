@@ -1,12 +1,6 @@
 name: Build
 
-on:
-  push:
-  workflow_dispatch:
-    inputs:
-      tag:
-        description: 'which tag to upload to'
-        default: ''
+on: [workflow_dispatch]
 
 jobs:
   build:
