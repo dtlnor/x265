@@ -1023,10 +1023,7 @@ Lookahead::Lookahead(x265_param *param, ThreadPool* pool)
 
     /* Allow the strength to be adjusted via qcompress, since the two concepts
      * are very similar. */
-    if (m_param->rc.cuTreeStrength >= 0.0)
-        m_cuTreeStrength = m_param->rc.cuTreeStrength;
-    else
-        m_cuTreeStrength = (m_param->rc.hevcAq ? 6.0 : 5.0) * (1.0 - m_param->rc.qCompress);
+    m_cuTreeStrength = m_param->rc.cuTreeStrength;
     m_cuTreeMinQpOffset = m_param->rc.cuTreeMinQpOffset;
     m_cuTreeMaxQpOffset = m_param->rc.cuTreeMaxQpOffset;
 
