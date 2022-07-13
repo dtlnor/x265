@@ -1321,6 +1321,13 @@ typedef struct x265_param
      * value must be between 0 and 50, 1.0 is typical. Default 0 */
     double    psyRdoq;
 
+    /* The Psycho-visual rate-distortion strength is scaled differently
+     * for B-, P- and I-slices. Values must be integers between 96 and 300
+     * Default is 300 for B-, 256 for P- and 96 for I-slices */
+    double    psyScaleB;
+    double    psyScaleP;
+    double    psyScaleI;
+
     /* Perform quantisation parameter based RD refinement. RD cost is calculated
      * on the best CU partitions, chosen after the CU analysis, for a range of QPs
      * to find the optimal rounding effect. Only effective at rd-levels 5 and 6.
