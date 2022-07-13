@@ -587,7 +587,7 @@ void LookaheadTLD::calcAdaptiveQuantFrame(Frame *curFrame, x265_param* param)
                             if (param->rc.limitAq1) {
                                 uint32_t energy = acEnergyCu(curFrame, blockX, blockY, param->internalCsp, param->rc.qgSize);
                                 double aq1_qp_adj = limitAq1_strength * (X265_LOG2(X265_MAX(energy, 1)) - (modeOneConst + 2 * (X265_DEPTH - 8)));
-                                qp_adj = X265_MAX(qp_adj, aq1_qp_adj);
+                                qp_adj = X265_MIN(qp_adj, aq1_qp_adj);
                             }
                         }
                         else if (param->rc.aqMode == X265_AQ_AUTO_VARIANCE)
@@ -597,7 +597,7 @@ void LookaheadTLD::calcAdaptiveQuantFrame(Frame *curFrame, x265_param* param)
                             if (param->rc.limitAq1) {
                                 uint32_t energy = acEnergyCu(curFrame, blockX, blockY, param->internalCsp, param->rc.qgSize);
                                 double aq1_qp_adj = limitAq1_strength * (X265_LOG2(X265_MAX(energy, 1)) - (modeOneConst + 2 * (X265_DEPTH - 8)));
-                                qp_adj = X265_MAX(qp_adj, aq1_qp_adj);
+                                qp_adj = X265_MIN(qp_adj, aq1_qp_adj);
                             }
 
                         }
@@ -612,7 +612,7 @@ void LookaheadTLD::calcAdaptiveQuantFrame(Frame *curFrame, x265_param* param)
                             if (param->rc.limitAq1) {
                                 uint32_t energy = acEnergyCu(curFrame, blockX, blockY, param->internalCsp, param->rc.qgSize);
                                 double aq1_qp_adj = limitAq1_strength * (X265_LOG2(X265_MAX(energy, 1)) - (modeOneConst + 2 * (X265_DEPTH - 8)));
-                                qp_adj = X265_MAX(qp_adj, aq1_qp_adj);
+                                qp_adj = X265_MIN(qp_adj, aq1_qp_adj);
                             }
                         }
                         else if (param->rc.aqMode == X265_AQ_EDGE_BIASED)
@@ -628,7 +628,7 @@ void LookaheadTLD::calcAdaptiveQuantFrame(Frame *curFrame, x265_param* param)
                             if (param->rc.limitAq1) {
                                 uint32_t energy = acEnergyCu(curFrame, blockX, blockY, param->internalCsp, param->rc.qgSize);
                                 double aq1_qp_adj = limitAq1_strength * (X265_LOG2(X265_MAX(energy, 1)) - (modeOneConst + 2 * (X265_DEPTH - 8)));
-                                qp_adj = X265_MAX(qp_adj, aq1_qp_adj);
+                                qp_adj = X265_MIN(qp_adj, aq1_qp_adj);
                             }
                         }
                         else
@@ -2865,9 +2865,9 @@ void Lookahead::computeCUTreeQpOffset(Lowres *frame, double averageDuration, int
 
                     double qp_offset = (m_cuTreeStrength * log2_ratio) / blockXY;
 
-                    qp_offset = x265_clip3(m_cuTreeMinQpOffset, m_cuTreeMaxQpOffset, (m_cuTreeStrength * log2_ratio) / blockXY);
+                    qp_offset = x265_clip3(m_cuTreeMinQpOffset, m_cuTreeMaxQpOffset, (-1.0 * qp_offset));
 
-                    *pcCuTree = *pcQP - qp_offset;
+                    *pcCuTree = *pcQP + qp_offset;
                 }
             }
         }
@@ -2919,9 +2919,9 @@ void Lookahead::computeCUTreeQpOffset(Lowres *frame, double averageDuration, int
 
                     double qp_offset = (m_cuTreeStrength * log2_ratio) / blockXY;
 
-                    qp_offset = x265_clip3(m_cuTreeMinQpOffset, m_cuTreeMaxQpOffset, (m_cuTreeStrength * log2_ratio) / blockXY);
+                    qp_offset = x265_clip3(m_cuTreeMinQpOffset, m_cuTreeMaxQpOffset, (-1.0 * qp_offset));
 
-                    *pcCuTree = *pcQP - qp_offset;
+                    *pcCuTree = *pcQP + qp_offset;
 
                 }
             }
@@ -2955,11 +2955,11 @@ void Lookahead::cuTreeFinish(Lowres *frame, double averageDuration, int ref0Dist
                     {
                         int propagateCost = ((frame->propagateCost[cuXY]) / 4 * fpsFactor + 128) >> 8;
                         double log2_ratio = X265_LOG2(intracost + propagateCost) - X265_LOG2(intracost) + weightdelta;
-                        double qp_offset =  x265_clip3(m_cuTreeMinQpOffset, m_cuTreeMaxQpOffset, (m_cuTreeStrength * (log2_ratio)));
-                        frame->qpCuTreeOffset[cuX * 2 + cuY * m_8x8Width * 4] = frame->qpAqOffset[cuX * 2 + cuY * m_8x8Width * 4] - qp_offset;
-                        frame->qpCuTreeOffset[cuX * 2 + cuY * m_8x8Width * 4 + 1] = frame->qpAqOffset[cuX * 2 + cuY * m_8x8Width * 4 + 1] - qp_offset;
-                        frame->qpCuTreeOffset[cuX * 2 + cuY * m_8x8Width * 4 + frame->maxBlocksInRowFullRes] = frame->qpAqOffset[cuX * 2 + cuY * m_8x8Width * 4 + frame->maxBlocksInRowFullRes] - qp_offset;
-                        frame->qpCuTreeOffset[cuX * 2 + cuY * m_8x8Width * 4 + frame->maxBlocksInRowFullRes + 1] = frame->qpAqOffset[cuX * 2 + cuY * m_8x8Width * 4 + frame->maxBlocksInRowFullRes + 1] - qp_offset;
+                        double qp_offset =  x265_clip3(m_cuTreeMinQpOffset, m_cuTreeMaxQpOffset, (-1.0 * m_cuTreeStrength * (log2_ratio)));
+                        frame->qpCuTreeOffset[cuX * 2 + cuY * m_8x8Width * 4] = frame->qpAqOffset[cuX * 2 + cuY * m_8x8Width * 4] + qp_offset;
+                        frame->qpCuTreeOffset[cuX * 2 + cuY * m_8x8Width * 4 + 1] = frame->qpAqOffset[cuX * 2 + cuY * m_8x8Width * 4 + 1] + qp_offset;
+                        frame->qpCuTreeOffset[cuX * 2 + cuY * m_8x8Width * 4 + frame->maxBlocksInRowFullRes] = frame->qpAqOffset[cuX * 2 + cuY * m_8x8Width * 4 + frame->maxBlocksInRowFullRes] + qp_offset;
+                        frame->qpCuTreeOffset[cuX * 2 + cuY * m_8x8Width * 4 + frame->maxBlocksInRowFullRes + 1] = frame->qpAqOffset[cuX * 2 + cuY * m_8x8Width * 4 + frame->maxBlocksInRowFullRes + 1] + qp_offset;
 
                     }
                 }
@@ -2974,8 +2974,8 @@ void Lookahead::cuTreeFinish(Lowres *frame, double averageDuration, int ref0Dist
                 {
                     int propagateCost = (frame->propagateCost[cuIndex] * fpsFactor + 128) >> 8;
                     double log2_ratio = X265_LOG2(intracost + propagateCost) - X265_LOG2(intracost) + weightdelta;
-                    double qp_offset =  x265_clip3(m_cuTreeMinQpOffset, m_cuTreeMaxQpOffset, (m_cuTreeStrength * (log2_ratio)));
-                    frame->qpCuTreeOffset[cuIndex] = frame->qpAqOffset[cuIndex] - qp_offset;
+                    double qp_offset =  x265_clip3(m_cuTreeMinQpOffset, m_cuTreeMaxQpOffset, (-1.0 * m_cuTreeStrength * (log2_ratio)));
+                    frame->qpCuTreeOffset[cuIndex] = frame->qpAqOffset[cuIndex] + qp_offset;
                 }
             }
         }
