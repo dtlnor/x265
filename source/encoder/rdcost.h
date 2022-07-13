@@ -53,7 +53,7 @@ public:
     {
         m_psyScaleFix8_B = B;
         m_psyScaleFix8_P = P;
-        m_psyScaleFix8_P = I;
+        m_psyScaleFix8_I = I;
     }
 
     void setQP(const Slice& slice, int qp)
