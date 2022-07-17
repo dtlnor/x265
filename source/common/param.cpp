@@ -1772,7 +1772,7 @@ int x265_check_params(x265_param* param)
 
     CHECK(param->rc.rateControlMode > X265_RC_CRF || param->rc.rateControlMode < X265_RC_ABR,
           "Rate control mode is out of range");
-    CHECK(param->rc.qScaleMode > 4 || param->rc.qScaleMode < 0),
+    CHECK(param->rc.qScaleMode > 4 || param->rc.qScaleMode < 0,
           "Invalid qScale mode. Valide modes 0,1,2,3,4");
 
     CHECK(param->rdLevel < 1 || param->rdLevel > 6,
