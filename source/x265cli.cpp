@@ -314,6 +314,12 @@ namespace X265_NS {
            "                                 - hevc-aq disabled:  5.0 * (1.0 - qcomp)\n");
         H1("   --cutree-minqpoffs <float>    sets a hard lower limit on QP offset (-69 to 0 ) allowed for cutree Adaptive Quantization. Default is %.2f (not limited)\n", param->rc.cuTreeMinQpOffset);
         H1("   --cutree-maxqpoffs <float>    sets a hard upper limit on QP offset ( 0 to 69 ) allowed for cutree Adaptive Quantization. Default is %.2f (not limited)\n", param->rc.cuTreeMaxQpOffset);
+        H1("   --qscale-mode <integer>       Overrides how ratecontrol will estimate quant/qScale - Default %d\n"
+           "                                     - 0 : not overriding the default ratecontrol logic\n"
+           "                                     - 1 : Uses frame duration as basis of estimation (default for --cutree)\n"
+           "                                     - 2 : Uses frame complexity as basis of (default for --no-cutree and --hevc-aq)\n"
+           "                                     - 3 : Minimum(Mode1, Mode2)\n"
+           "                                     - 4 : Maximum(Mode1, Mode2)\n", param->rc.qScaleMode);
         H1("   --qpstep <integer>            The maximum single adjustment in QP allowed to rate control. Default %d\n", param->rc.qpStep);
         H1("   --qpmin <integer>             sets a hard lower limit on QP allowed to ratecontrol. Default %d\n", param->rc.qpMin);
         H1("   --qpmax <integer>             sets a hard upper limit on QP allowed to ratecontrol. Default %d\n", param->rc.qpMax);
