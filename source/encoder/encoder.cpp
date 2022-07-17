@@ -2486,6 +2486,7 @@ int Encoder::reconfigureParam(x265_param* encParam, x265_param* param)
         encParam->rc.bitrate = param->rc.bitrate;
         m_reconfigureRc |= encParam->rc.rfConstant != param->rc.rfConstant;
         encParam->rc.rfConstant = param->rc.rfConstant;
+        encParam->rc.qScaleMode = param->rc.qScaleMode;
     }
     else
     {
