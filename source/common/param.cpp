@@ -274,6 +274,7 @@ void x265_param_default(x265_param* param)
     param->rc.pbFactor = 1.3f;
     param->rc.qpStep = 4;
     param->rc.rateControlMode = X265_RC_CRF;
+    param->rc.qScaleMode = 0;
     param->rc.qp = 32;
     param->rc.aqMode = X265_AQ_AUTO_VARIANCE;
     param->rc.limitAq1 = 0;
@@ -1133,6 +1134,7 @@ int x265_param_parse(x265_param* p, const char* name, const char* value)
     OPT("cutree-strength") p->rc.cuTreeStrength = atof(value);
     OPT("cutree-minqpoffs") p->rc.cuTreeMinQpOffset = atof(value);
     OPT("cutree-maxqpoffs") p->rc.cuTreeMaxQpOffset = atof(value);
+    OPT("qscale-mode") p->rc.qScaleMode = atoi(value);
     OPT("qpstep") p->rc.qpStep = atoi(value);
     OPT("cplxblur") p->rc.complexityBlur = atof(value);
     OPT("qblur") p->rc.qblur = atof(value);
@@ -1770,6 +1772,9 @@ int x265_check_params(x265_param* param)
 
     CHECK(param->rc.rateControlMode > X265_RC_CRF || param->rc.rateControlMode < X265_RC_ABR,
           "Rate control mode is out of range");
+    CHECK(param->rc.qScaleMode > 4 || param->rc.qScaleMode < 0),
+          "Invalid qScale mode. Valide modes 0,1,2,3,4"
+
     CHECK(param->rdLevel < 1 || param->rdLevel > 6,
           "RD Level is out of range");
     CHECK(param->rdoqLevel < 0 || param->rdoqLevel > 2,
@@ -2241,6 +2246,7 @@ char *x265_param2string(x265_param* p, int padx, int pady)
     }
     else if (p->rc.rateControlMode == X265_RC_CQP)
         s += sprintf(s, " qp=%d", p->rc.qp);
+    s += sprintf(s, " qscale-mode=%d", p->rc.qScaleMode);
 
     BOOL(p->bLossless, "lossless");
     BOOL(p->bCULossless, "cu-lossless");
@@ -2672,6 +2678,7 @@ void x265_copy_params(x265_param* dst, x265_param* src)
     dst->pictureStructure = src->pictureStructure;
 
     dst->rc.rateControlMode = src->rc.rateControlMode;
+    dst->rc.qScaleMode = src->rc.qScaleMode;
     dst->rc.qp = src->rc.qp;
     dst->rc.bitrate = src->rc.bitrate;
     dst->rc.qCompress = src->rc.qCompress;
