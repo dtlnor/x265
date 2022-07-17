@@ -1418,6 +1418,15 @@ typedef struct x265_param
          * Acceptable values between 0 and 51. Default value: 28 */
         double    rfConstant;
 
+        /* qScale Mode: overrides how rate control will estimate quant/qScale
+         * Acceptable values are 0,1,2
+         * Mode 0 (default): not overriding the original logic in rate control
+         * Mode 1: Uses frame duration as basis of estimation (default for --cutree)
+         * Mode 2: Uses frame complexity as basis of (default for --no-cutree and --hevc-aq)
+         * Mode 3: Minimum(Mode1, Mode2)
+         * Mode 4: Maximum(Mode1, Mode2) */
+        int       qScaleMode;
+
         /* Max QP difference between frames. Default: 4 */
         int       qpStep;
 
