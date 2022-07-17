@@ -2737,7 +2737,7 @@ double RateControl::getQScale(RateControlEntry *rce, double rateFactor)
         else
             q = X265_MAX(q1, q2);
     }
-    elif  (m_param->rc.qScaleMode == 1 || (m_param->rc.cuTree && !m_param->rc.hevcAq && m_param->rc.qScaleMode == 0))
+    else if (m_param->rc.qScaleMode == 1 || (m_param->rc.cuTree && !m_param->rc.hevcAq && m_param->rc.qScaleMode == 0))
     {
         // Scale and units are obtained from rateNum and rateDenom for videos with fixed frame rates.
         double timescale = (double)m_param->fpsDenom / (2 * m_param->fpsNum);
