@@ -2733,9 +2733,9 @@ double RateControl::getQScale(RateControlEntry *rce, double rateFactor)
         double q1 = pow(BASE_FRAME_DURATION / CLIP_DURATION(2 * timescale), 1 - m_param->rc.qCompress);
         double q2 = pow(rce->blurredComplexity, 1 - m_param->rc.qCompress);
         if (m_param->rc.qScaleMode == 3)
-            q = x265_MIN(q1, q2);
+            q = X265_MIN(q1, q2);
         else
-            q = x265_MAX(q1, q2);
+            q = X265_MAX(q1, q2);
     }
     elif  (m_param->rc.qScaleMode == 1 || (m_param->rc.cuTree && !m_param->rc.hevcAq && m_param->rc.qScaleMode == 0))
     {
