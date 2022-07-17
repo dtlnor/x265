@@ -200,6 +200,7 @@ static const struct option long_options[] =
     { "cutree-strength",required_argument, NULL, 0 },
     { "cutree-minqpoffs",required_argument, NULL, 0 },
     { "cutree-maxqpoffs",required_argument, NULL, 0 },
+    { "qscale-mode",    required_argument, NULL, 0 },
     { "qpstep",         required_argument, NULL, 0 },
     { "qpmin",          required_argument, NULL, 0 },
     { "qpmax",          required_argument, NULL, 0 },
