@@ -154,7 +154,7 @@ RateControl::RateControl(x265_param& p, Encoder *top)
     int lowresCuHeight = ((m_param->sourceHeight / 2) + X265_LOWRES_CU_SIZE - 1) >> X265_LOWRES_CU_BITS;
     m_ncu = lowresCuWidth * lowresCuHeight;
 
-    m_qCompress = (m_param->rc.cuTree && !m_param->rc.hevcAq) ? 1 : m_param->rc.qCompress;
+    m_qCompress = (m_param->rc.cuTree && !m_param->rc.hevcAq) ? m_param->rc.qCompress : 1;
 
     // validate for param->rc, maybe it is need to add a function like x265_parameters_valiate()
     m_zoneBufferIdx = 0;
