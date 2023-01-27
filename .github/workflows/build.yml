@@ -19,7 +19,6 @@ jobs:
       matrix:
         target_cpu:
         - znver3
-        - znver4
         toolchain:
         - clang
         #- ucrt
